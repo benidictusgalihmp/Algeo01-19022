@@ -1,10 +1,3 @@
-
-package algeo;
-
-/**
- * Package dibuat seragam aja ya namanya algeo
- * @author HP
- */
 import java.util.Scanner;
 public class main {
 static Scanner input = new Scanner(System.in);
@@ -44,10 +37,9 @@ public static void main(String[] args) {
                     matriks A=new matriks();
                     matriks B=new matriks();
                     B.kol=1;
-                    A.InputMatriksSQ();
+                    A.InputMatriksSQ(A);
                     B.bar=A.bar;
-                    B.InputMatriks();
-                    
+                    B.InputMatriks(B, B.bar, B.kol);
                     
                     break;
                 }
@@ -132,5 +124,3 @@ static void BalikanMenu(){
 }
  
 }
-
-

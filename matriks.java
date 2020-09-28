@@ -18,8 +18,8 @@ static Scanner input=new Scanner(System.in);
 public matriks InputMatriksSQ(matriks M1){
     System.out.print("Masukkan ukuran matriks: ");
     M1.bar=M1.kol=input.nextInt();
-     for(int i=0; i<this.bar; i++){
-        for(int j=0; j<this.kol; j++){
+     for(int i=0; i< M1.bar; i++){
+        for(int j=0; j<M1.kol; j++){
             System.out.println("\nMasukkan elemen matriks baris "+(i+1)+" kolom "+(j+1)+" : ");
             M1.M[i][j]=input.nextFloat();
         }    
@@ -52,7 +52,7 @@ public int GetLastIdxKol(matriks M1){
 }
 
 float GetElmtDiagonal (matriks M1, int i){
-	return(M1.M[i][i]);
+ return(M1.M[i][i]);
 }
 
 public void PrintMatriks(){
@@ -87,8 +87,8 @@ matriks CopyMatriks (matriks MIn){
     return Trans;      
 }
  matriks TambahMatriks (matriks  M1, matriks M2){
-	matriks M3 = new matriks();
-	for (int i=0; i <= GetLastIdxBrs(M1); i++){
+ matriks M3 = new matriks();
+ for (int i=0; i <= GetLastIdxBrs(M1); i++){
             for (int j=0; j <= GetLastIdxKol(M1); j++){
                 M3.M[i][j]=M1.M[i][j]-M2.M[i][j];
         }
@@ -96,8 +96,8 @@ matriks CopyMatriks (matriks MIn){
     return M3;
 }
 matriks KurangMatriks (matriks  M1, matriks M2){
-	matriks M3 = new matriks();
-	for (int i=0; i <= GetLastIdxBrs(M1); i++){
+ matriks M3 = new matriks();
+ for (int i=0; i <= GetLastIdxBrs(M1); i++){
             for (int j=0; j <= GetLastIdxKol(M1); j++){
                 M3.M[i][j]=M1.M[i][j]-M2.M[i][j];
         }
@@ -106,8 +106,8 @@ matriks KurangMatriks (matriks  M1, matriks M2){
 }
 
 matriks KaliMatriks (matriks  M1, matriks M2){
-	matriks M3 = new matriks();
-	for (int i=0; i <= GetLastIdxBrs(M1); i++){
+ matriks M3 = new matriks();
+ for (int i=0; i <= GetLastIdxBrs(M1); i++){
             for (int j=0; j <= GetLastIdxKol(M1); j++){
                 for(int k=0; k<= GetLastIdxKol(M1); k++){
                     M3.M[i][j]=M1.M[i][k]*M2.M[k][j];
@@ -195,11 +195,3 @@ public matriks eselonbaris(matriks M2){
 
 
 }
-
-    
-    
-    
-
-
-
-
