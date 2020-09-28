@@ -21,7 +21,7 @@ public static void main(String[] args) {
             + "4. Interpolasi Polinom\n"
             + "5. Regresi Liner Berganda\n"
             + "6. Keluar\n"
-            + "Masukkan pilihan anda : ");
+            + "\nMasukkan pilihan anda : ");
         menu=input.nextInt();
         switch (menu) {
             case 1:
@@ -43,9 +43,21 @@ public static void main(String[] args) {
                 }
              
                 else if(SPL==3){
-                    
+                    System.out.print("Masukkan jumlah baris: ");
+                    int m=input.nextInt();
+                    System.out.print("Masukkan jumlah kolom: ");
+                    int n=input.nextInt();
+                    int[][] Tab = new int[m][n];
+                    Tab(Tab, m, n);
+                    for(int i=0; i<m; i++){
+                        for(int j=0; j<n; j++){
+                            System.out.print(Tab[i][j]+" ");
+                    }
+                        System.out.println("");
+                }
                     break;
                 }
+        
                
             case 2:
                 SPLMenu();
@@ -110,18 +122,18 @@ static void SPLMenu(){
                                 + "2. Metode Eliminasi Gauss-Jordan\n"
                                 + "3. Metode Matriks Balikan\n"
                                 + "4. Kaidah Cramer\n"
-                                + "Masukkan pilihan anda ");
+                                + "\nMasukkan pilihan anda : ");
 }
 
 
- public static int[][]T(int T[][],int m, int n){
-    for(int i=0; i<=m; i++){
-        for(int j=0; j<=n; j++){
-            System.out.println("Masukkan elemen matriks baris "+i+"kolom "+j);
-            T[i][j]=input.nextInt();
+ public static int[][]Tab(int Tab[][],int m, int n){
+    for(int i=0; i<m; i++){
+        for(int j=0; j<n; j++){
+            System.out.println("\nMasukkan elemen matriks baris "+(i+1)+" kolom "+(j+1)+" : ");
+            Tab[i][j]=input.nextInt();
         }    
 }
-    return T;
+    return Tab;
 }
 }
 
