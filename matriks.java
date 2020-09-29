@@ -192,6 +192,53 @@ public matriks eselonbaris(matriks M2){
     return M2;
 }
 
-
-
+public float Determinan (matriks A){
+    float det=0;
+    if(A.bar!=A.kol){
+        System.out.println("Determinan matriks ini tidak bisa diselesaikan dengan metode kofaktor");
+        System.out.println("Silahkan gunakan matriks koefisien berbentuk persegi\n atau silahkan menggunakan metode lain");
+    }
+    else{
+        if(A.kol==1){
+            det=A.M[0][0];
+        }
+        else if(A.kol==2){
+            det=((A.M[0][0]*A.M[1][1])-(A.M[0][1]*A.M[1][0]));
+        }
+        else if(A.kol>2){
+            for (int i=0; i<A.bar; i++) {  
+                if(i%2==0){
+                    det+=A.M[i][0]*Kofaktor(A, i, 0).Determinan(Kofaktor(A, i, 0));
+                }
+                else{
+                    det+=-(A.M[i][0])*Kofaktor(A, i, 0).Determinan(Kofaktor(A, i, 0));
+                }
+            }  
+        }  
+    }
+    return det;  
 }
+
+public matriks Kofaktor(matriks A, int bar, int kol){    
+    matriks Kof = new matriks();  
+    Kof.bar=A.bar-1;
+    Kof.kol=A.bar-1;  
+    
+    int cbar=0;   
+    int ckol=0;
+    for (int i=0; i<A.bar; i++) {  
+        if(i!=bar){
+        for (int j = 0; j<A.kol; j++) {  
+            if(j!=kol){
+                Kof.M[cbar][ckol]=A.M[i][j];  
+                ckol++;
+            }
+        } 
+        cbar++;
+        ckol=0;
+        }
+    }
+  return Kof;  
+}
+}
+
