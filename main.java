@@ -37,10 +37,12 @@ public static void main(String[] args) {
                     matriks A=new matriks();
                     matriks B=new matriks();
                     B.kol=1;
+                    System.out.println("Silahkan input isi matriks koefisien (A)");
                     A.InputMatriksSQ(A);
+                    System.out.println("Silahkan input isi matriks B");
                     B.bar=A.bar;
                     B.InputMatriks(B, B.bar, B.kol);
-                    
+                    System.out.print(A.Determinan(A));
                     break;
                 }
                 
