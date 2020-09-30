@@ -134,28 +134,6 @@ matriks KaliMatriks (matriks  M1, matriks M2){
     return M3;
 }
 
-public matriks eselonbarispertama(matriks M1,int iddiagon){
-    float var;
-    if(M1.M[iddiagon][iddiagon]!= 1){
-        var = M1.M[iddiagon][iddiagon];
-        for(int i=0; i<=GetLastIdxBrs(M1); i++){
-            M1.M[iddiagon][i] = M1.M[iddiagon][i] / var;
-        }
-    }
-
-    //Pengecekan pada kolom yang sama dari indeks elemen pertama
-    for(int i=1; i<GetLastIdxKol(M1); i++){
-        if(M1.M[i][iddiagon] != 1 && M1.M[i][iddiagon] != 0){
-            //Pengurangan setiap elemen dalam baris
-            var = M1.M[i][iddiagon];
-            for(int j=iddiagon; i<GetLastIdxKol(M1); i++){
-                M1.M[i][j] = M1.M[i][j] - (M1.M[iddiagon][j]*var);
-            }
-        }
-    }
-    return M1;
-}
-
 public matriks TukarBaris(matriks M3, int brs1, int brs2){
     matriks var=new matriks();
     var.bar=M3.bar;
@@ -237,6 +215,8 @@ public matriks MakeLeadOne(matriks M1, int idxbrs,  int idxkol){
 	}
 	return M1;
 }
+
+// Pembuatan kode dibuat dalam python lalu diubah ke dalam java
 public matriks MartiksEselon(matriks M1){
 	int i = 0;
     int j = 0;
