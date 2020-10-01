@@ -445,7 +445,7 @@ public matriks MatriksKolomKeI(int kolom) {
         t.kol = this.kol - 1;
         for (i = 1; i <= t.bar; i++) {
             for (j = 1; j <= t.kol; j++) {
-                if (j == a) {
+                if (j == kolom) {
                     t.M[i][j] = this.M[i][this.kol];
                 } else {
                     t.M[i][j] = t.M[i][j];
