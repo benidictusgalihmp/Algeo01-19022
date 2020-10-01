@@ -103,37 +103,7 @@ matriks CopyMatriks (matriks MIn){
     }
     return Trans;      
 }
- matriks TambahMatriks (matriks  M1, matriks M2){
- matriks M3 = new matriks();
- for (int i=0; i <= GetLastIdxBrs(M1); i++){
-            for (int j=0; j <= GetLastIdxKol(M1); j++){
-                M3.M[i][j]=M1.M[i][j]-M2.M[i][j];
-        }
-    }
-    return M3;
-}
-matriks KurangMatriks (matriks  M1, matriks M2){
- matriks M3 = new matriks();
- for (int i=0; i <= GetLastIdxBrs(M1); i++){
-            for (int j=0; j <= GetLastIdxKol(M1); j++){
-                M3.M[i][j]=M1.M[i][j]-M2.M[i][j];
-        }
-    }
-    return M3;
-}
-
-matriks KaliMatriks (matriks  M1, matriks M2){
- matriks M3 = new matriks();
- for (int i=0; i <= GetLastIdxBrs(M1); i++){
-    for (int j=0; j <= GetLastIdxKol(M1); j++){
-        for(int k=0; k<= GetLastIdxKol(M1); k++){
-            M3.M[i][j]=M1.M[i][k]*M2.M[k][j];
-        }
-    }
-}
-    return M3;
-}
-
+ 
 public matriks TukarBaris(matriks M3, int brs1, int brs2){
     matriks var=new matriks();
     var.bar=M3.bar;
@@ -143,6 +113,7 @@ public matriks TukarBaris(matriks M3, int brs1, int brs2){
     M3.M[brs2] = var.M[brs2];
     return M3;
 }
+
 
 public boolean SearchOneKol(matriks M1, int idxbrs, int idxkol){
 	boolean found = false;
@@ -352,6 +323,7 @@ public matriks MartiksEselon(matriks M1){
 }
 
 
+
 public float Determinan (matriks A){
     float det=0;
     if(A.bar!=A.kol){
@@ -401,76 +373,48 @@ public matriks Kofaktor(matriks A, int bar, int kol){
   return Kof;  
 }
 
-public matriks Adjoint (matriks M1){
-    matriks A=new matriks();
-    if(M1.bar!=M1.kol){
-        System.out.println("Adjoin matriks ini tidak bisa ditentukan dengan metode minor kofaktor");
-        System.out.println("Silahkan gunakan matriks koefisien berbentuk persegi");
-    }
-    else{
-        if(M1.bar==0){
-            A.M[0][0]=M1.M[0][0];
-        }
-        else if(M1.bar==2){
-            A.bar=A.kol=2;
-            A.M[0][0]=M1.M[1][1];
-            A.M[1][1]=M1.M[0][0];
-            A.M[0][1]=M1.M[1][0];
-            A.M[1][0]=M1.M[0][1];
-        }
-        else{
-           MinorKofaktor(A).Transpose(MinorKofaktor(A));
-        }
-    }
-    return A;
-}
-
 public matriks MinorKofaktor(matriks A){
     matriks MinKof=new matriks();
     MinKof.bar=A.bar;
     MinKof.kol=A.kol;
-    int cbar=0;   
-    int ckol=0;
     for (int i=0; i<A.bar; i++) {  
         for (int j = 0; j<A.kol; j++) {  
                 if((i+j)%2==0){
-                    MinKof.M[cbar][ckol]=A.M[i][j]*Kofaktor(A, i,j).Determinan(Kofaktor(A, i,j));  
+                    MinKof.M[i][j]=Kofaktor(A, i,j).Determinan(Kofaktor(A, i,j));  
                 }
                 else{
-                    MinKof.M[cbar][ckol]=-1*A.M[i][j]*Kofaktor(A, i,j).Determinan(Kofaktor(A, i,j));
+                    MinKof.M[i][j]=-1*Kofaktor(A, i,j).Determinan(Kofaktor(A, i,j));
                 }
             }
  
     }
      return MinKof;
 }
-public matriks MatriksKolomKeI(int kolom) {
-	int i;
-	int j;
+
+public matriks MatriksKolomKeI(int kolom){
 	matriks t = new matriks();
         t.bar = this.bar;
         t.kol = this.kol - 1;
-        for (i = 1; i <= t.bar; i++) {
-            for (j = 1; j <= t.kol; j++) {
-                if (j == kolom) {
+        for (int i = 1; i <= t.bar; i++) {
+            for (int j = 1; j <= t.kol; j++) {
+                if (j == a) {
                     t.M[i][j] = this.M[i][this.kol];
                 } else {
-                    t.M[i][j] = this.M[i][j];
+                    t.M[i][j] = t.M[i][j];
                 }
             }
         }
         return t;
     }
+
 public void Cramer() {
-    int i;
-	int j;
 	matriks t = new matriks();
         t.bar = this.bar;
         t.kol = this.kol - 1;
-        detAwal = t.Determinan();
+        float detAwal = t.Determinan(t);
 
-        for (i = 1; i <= t.bar; i++) {
-            for (j = 1; j <= t.kol; j++) {
+        for (int i = 1; i <= t.bar; i++) {
+            for (int j = 1; j <= t.kol; j++) {
                 t.M[i][j] = this.M[i][j];
             }
         }
@@ -479,9 +423,9 @@ public void Cramer() {
             System.out.println("Tidak ada solusi cramer");
             return;
         }
-        for (i = 1; i <= t.kol; i++) {
+        for (int i = 1; i <= t.kol; i++) {
             matriks MatriksKolomI = MatriksKolomKeI(i);
-            float DetmatriksI = MatriksKolomI.Determinan();
+            float DetmatriksI = MatriksKolomI.Determinan(MatriksKolomI);
             float det = DetmatriksI / detAwal;
             System.out.printf("%.3f\n", det);
         }

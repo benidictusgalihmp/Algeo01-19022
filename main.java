@@ -36,13 +36,41 @@ public static void main(String[] args) {
                 else if(SPL==3){
                     matriks A=new matriks();
                     matriks B=new matriks();
+                    matriks Adj=new matriks();
                     B.kol=1;
-                    System.out.println("Silahkan input isi matriks koefisien (A)");
+                    System.out.println("\nSilahkan input isi matriks koefisien (A)");
                     A.InputMatriksSQ(A);
-                    System.out.println("Silahkan input isi matriks B");
+                    System.out.println("\nSilahkan input isi matriks B");
                     B.bar=A.bar;
                     B.InputMatriks(B, B.bar, B.kol);
-                    System.out.print(A.Determinan(A));
+                    Adj=A.MinorKofaktor(A).Transpose(A.MinorKofaktor(A));
+                    if(A.Determinan(A)==0){
+                        System.out.print("Matriks ini tidak memiliki determinan,"
+                                + "\nsehingga pencarian solusinya tidak dapat menggunakan metode matriks balikan."
+                                + "\nSilahkan gunakan metode lain");
+                    }
+                    matriks Inv=new matriks();
+                    for (int i=0; i<A.bar; i++) {  
+                        for (int j = 0; j<A.kol; j++) { 
+                           Inv.M[i][j]=Adj.M[i][j]/A.Determinan(A);
+                        }
+                    }
+                    
+                    matriks Hasil=new matriks();
+                    float temp = 0;
+                    for (int i=0; i<A.bar; i++) {  
+                        for (int j = 0; j<B.kol; j++) { 
+                            for (int k = 0; k<B.bar; k++) { 
+                                Hasil.M[i][j]+=(Inv.M[i][k]*B.M[k][j]);
+                            }
+                        }
+                    }
+                    
+                    for (int i=0; i<A.bar; i++) {  
+                           System.out.println("X"+(i+1)+" = "+Hasil.M[i][0]);
+                        }
+                    
+                    
                     break;
                 }
                 
@@ -50,6 +78,7 @@ public static void main(String[] args) {
                     
                     break;
                 }
+        
             
             case 2:
                 DETMenu();
@@ -65,7 +94,9 @@ public static void main(String[] args) {
                 }
                 
                 else if(DET==2){
-                    
+                    matriks A=new matriks();
+                    A.InputMatriksSQ(A);
+                    System.out.println("Determinan matriks tersebut adalah "+ A.Determinan(A));
                     break;
                 }
              
@@ -84,6 +115,23 @@ public static void main(String[] args) {
                 }
                 
                 else if(Balik==2){
+                    matriks A=new matriks();
+                    matriks Adj=new matriks();
+                    System.out.println("\nSilahkan input isi matriks koefisien (A)");
+                    A.InputMatriksSQ(A);
+                    Adj=A.MinorKofaktor(A).Transpose(A.MinorKofaktor(A));
+                    if(A.Determinan(A)==0){
+                        System.out.print("Matriks ini tidak memiliki determinan,"
+                                + "\nsehingga pencarian solusinya tidak dapat menggunakan metode matriks balikan."
+                                + "\nSilahkan gunakan metode lain");
+                    }
+                    System.out.println("\nInvers matriks tersebut adalah:\n");
+                    for (int i=0; i<A.bar; i++) {  
+                        for (int j = 0; j<A.kol; j++) { 
+                           System.out.print(Adj.M[i][j]/A.Determinan(A)+" ");
+                        }
+                        System.out.println();
+                    }
                     
                     break;
                 }
@@ -92,18 +140,20 @@ public static void main(String[] args) {
             case 4:
                 
             case 5:
-                
-                
+                              
+            case 6:
+                continue;
+            default: 
+                System.out.print("\nInput menu tidak valid, silahkan input kembali!\n");
             }
         }while(menu!=6);
-               
-
+        System.out.print("\nTerimakasih telah menggunakan layanan kami ^^ \n");
     }
     
     
 
 static void SPLMenu(){
-    System.out.print("\n========SPL METHOD========\n"
+    System.out.print("\n========SPL Method========\n"
                                 + "1. Metode Eliminasi Gauss\n"
                                 + "2. Metode Eliminasi Gauss-Jordan\n"
                                 + "3. Metode Matriks Balikan\n"
@@ -119,10 +169,11 @@ static void DETMenu(){
 }
 
 static void BalikanMenu(){
-    System.out.print("\n========SPL METHOD========\n"
+    System.out.print("\n========Inverse Matrix Method========\n"
                                 + "1. Metode Reduksi Baris\n"
                                 + "2. Metode Invers dengan Adjoint\n"
                                 + "\nMasukkan pilihan anda : ");
 }
- 
+
+
 }
