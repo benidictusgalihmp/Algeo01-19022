@@ -24,12 +24,18 @@ public static void main(String[] args) {
                 }
                         
                 if(SPL==1){
-                    
+                    matriks M = new matriks();
+                    M.InputMatrikAug(M);
+                    M.MartiksEselon(M);
+
                     break;
                 }
                 
                 else if(SPL==2){
-                    
+                    matriks M = new matriks();
+                    M.InputMatrikAug(M);
+                    M.matriksEselonReduksi(M);
+
                     break;
                 }
              
@@ -83,14 +89,18 @@ public static void main(String[] args) {
             case 2:
                 DETMenu();
                 int DET=input.nextInt();
-                while(DET>4 || DET<1){
+                while(DET>2 || DET<1){
                     System.out.print("Pilihan tidak valid, silahkan ulangi lagi!");
                     DET=input.nextInt();
                 }
                         
                 if(DET==1){
-                    
+                    matriks MatriksDt = new matriks();
+                    MatriksDt.InputMatriksSQ(MatriksDt);
+                    MatriksDt.MatriksDeterminanReduksi(MatriksDt);
+                    System.out.println("Determinan matriks tersebut adalah "+ MatriksDt.M[MatriksDt.GetLastIdxBrs(MatriksDt)][MatriksDt.GetLastIdxKol(MatriksDt)]);
                     break;
+
                 }
                 
                 else if(DET==2){
