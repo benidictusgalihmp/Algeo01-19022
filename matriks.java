@@ -145,11 +145,12 @@ public matriks TukarBaris(matriks M3, int brs1, int brs2){
 }
 
 public boolean SearchOneKol(matriks M1, int idxbrs, int idxkol){
-	boolean found=false;
-	int i=idxbrs;
-	while(i<M1.bar && found==false){
+	boolean found = false;
+    int i = idxbrs;
+
+	while(i < M1.bar && !found){
 		if(M[i][idxkol]==1){
-			found=true;
+			found = true;
 		}
 		else{
 			i++;
@@ -159,11 +160,12 @@ public boolean SearchOneKol(matriks M1, int idxbrs, int idxkol){
 }
 
 public int SearchOneIdxKol(matriks M1, int idxbrs, int idxkol){
-	boolean found=false;
-	int i=idxbrs;
-	while(i<M1.bar && found==false){
+	boolean found = false;
+    int i = idxbrs;
+
+	while(i < M1.bar && !found){
 		if(M[i][idxkol]==1){
-			found=true;
+			found = true;
 		}
 		else{
 			i++;
@@ -172,12 +174,14 @@ public int SearchOneIdxKol(matriks M1, int idxbrs, int idxkol){
 	return i;
 }
 
-public boolean SearchNonZeroKol(matriks M1, int idxbrs, int idxkol){
-	boolean found=false;
-	int i=idxbrs;
-	while(i<M1.bar && found==false){
+public boolean SearchNonZeroKol(matriks M1, int idxbrs1, int idxbrs2, int idxkol){
+	boolean found = false;
+    int i = idxbrs1;
+    int j = idxbrs2;
+    
+	while(i < j && !found){
 		if(M[i][idxkol]!=0){
-			found=true;
+			found = true;
 		}
 		else{
 			i++;
@@ -186,10 +190,12 @@ public boolean SearchNonZeroKol(matriks M1, int idxbrs, int idxkol){
 	return found;
 }
 	
-public int SearchNonZeroIdxKol(matriks M1, int idxbrs, int idxkol){
-	boolean found=false;
-	int i=idxbrs;
-	while(i<M1.bar && found==false){
+public int SearchNonZeroIdxKol(matriks M1, int idxbrs1, int idxbrs2, int idxkol){
+	boolean found = false;
+    int i = idxbrs1;
+    int j = idxbrs2;
+
+	while(i < j && !found){
 		if(M[i][idxkol]!=0){
 			found=true;
 		}
@@ -222,17 +228,16 @@ public matriks MartiksEselon(matriks M1){
     int j = 0;
     boolean valid = true;
 
-     while (i < M1.bar && j < M1.kol && valid==true){
+    while (i < M1.bar && j < M1.kol && valid){
         if (M1.M[i][j] == 1){
-        	for(int k=i+1; k<M1.bar; k++){ // Pencarian dalam kolom yang elemennya tidak 0
-                if (SearchNonZeroKol(M1,k,j)){
-                    OperasiBaris(M1,i,SearchNonZeroIdxKol(M1,k,j),j);
+        	for(int k = i + 1; k < M1.bar; k++){ // Pencarian dalam kolom yang elemennya tidak 0
+                if (SearchNonZeroKol(M1, k, M1.bar, j)){
+                    OperasiBaris(M1,i,SearchNonZeroIdxKol(M1, k, M1.bar, j),j);
                 }
             }
             i += 1;
             j += 1;
         }
-        
 
        	else if(M1.M[i][j] == 0){
        		if (i == 0 && j == 0){                            // Elemen bernilai 0 dan pada M[0][0]
@@ -240,22 +245,22 @@ public matriks MartiksEselon(matriks M1){
                     TukarBaris(M1,i,SearchOneIdxKol(M1,i,j));
 
                     for(int k=i+1; k<M1.bar; k++){                   // Pencarian dalam kolom yang elemennya tidak 0
-                        if (SearchNonZeroKol(M1,k,j)){
-                            OperasiBaris(M1,i,SearchNonZeroIdxKol(M1,k,j),j);
+                        if (SearchNonZeroKol(M1, k, M1.bar, j)){
+                            OperasiBaris(M1,i,SearchNonZeroIdxKol(M1, k, M1.bar, j),j);
                         }
                     }       
-                    i += 1 ;                         
+                    i += 1;                         
                     j += 1;                                      
        			}
 
-       			else if(SearchNonZeroKol(M1,i,j)){
-       				TukarBaris(M1,i,SearchNonZeroIdxKol(M1,i,j));
+       			else if(SearchNonZeroKol(M1, i, M1.bar, j)){
+       				TukarBaris(M1,i,SearchNonZeroIdxKol(M1, i, M1.bar, j));
                     MakeLeadOne(M1,i,j);
-                    for(int k=i+1; k<M1.bar; k++){                   // Pencarian dalam kolom yang elemennya tidak 0
-                        if (SearchNonZeroKol(M1,k,j)){
-                            OperasiBaris(M1,i,SearchNonZeroIdxKol(M1,k,j),j);
+                    for(int k = i + 1; k < M1.bar; k++){                   // Pencarian dalam kolom yang elemennya tidak 0
+                        if (SearchNonZeroKol(M1, k, M1.bar, j)){
+                            OperasiBaris(M1,i,SearchNonZeroIdxKol(M1, k, M1.bar, j),j);
                         }
-                    }       
+                    }
                     i += 1 ;                         
                     j += 1;                                      
        			}
@@ -263,7 +268,7 @@ public matriks MartiksEselon(matriks M1){
        			else{
        				valid = false;
                     int kol = 0;
-                    while (kol < M1.kol && valid==false){
+                    while (kol < M1.kol && !valid){
                         if (M1.M[0][kol] != 0){
                             valid = true;
                         }
@@ -276,33 +281,33 @@ public matriks MartiksEselon(matriks M1){
                     	System.out.println("Input tidak valid!");
                     }
                     else{
-                    	j+=1;
+                    	j += 1;
                     }
                 }
        		}
 
        		else{
-       			boolean found=false;
-       			int brs=i;
+       			boolean found = false;
+       			int brs = i;
 
-       			while(brs<M1.bar && found==false){
+       			while(brs < M1.bar && !found){
        				if(M1.M[brs][j] != 0){
-       					found=true;
-       					if(M1.M[brs][j]==1){
+       					found = true;
+       					if(M1.M[brs][j] == 1){
        						TukarBaris(M1, i, SearchOneIdxKol(M1, i, j));
-							for(int k=i+1; k<M1.bar; k++){       		
-								if(SearchNonZeroKol(M1, i+1, j)==true){
-									OperasiBaris(M1,i,SearchNonZeroIdxKol(M1,k,j),j);
+							for(int k = i + 1; k < M1.bar; k++){       		
+								if(SearchNonZeroKol(M1, i+1, M1.bar, j)){
+									OperasiBaris(M1,i,SearchNonZeroIdxKol(M1, k, M1.bar, j),j);
 								}
 							}
-							i+=1;
-							j+=1;
+							i += 1;
+							j += 1;
 						}
        					else{
        						MakeLeadOne(M1,brs,j);
-       						for(int k=i+1; k<M1.bar; k++){       		
-								if(SearchNonZeroKol(M1, i+1, j)==true){
-									OperasiBaris(M1,i,SearchNonZeroIdxKol(M1,k,j),j);
+       						for(int k = i + 1; k < M1.bar; k++){       		
+								if(SearchNonZeroKol(M1, i + 1, M1.bar, j)==true){
+									OperasiBaris(M1,i,SearchNonZeroIdxKol(M1, k, M1.bar, j),j);
 								}
 							}
 							i+=1;
@@ -320,22 +325,24 @@ public matriks MartiksEselon(matriks M1){
         }
        	else{
        		if(SearchOneKol(M1, i, j)){
-       			TukarBaris(M1, i, SearchOneIdxKol(M1, i, j));
-					for(int k=i+1; k<M1.bar; k++){       		
-						if(SearchNonZeroKol(M1, i+1, j)==true){
-							OperasiBaris(M1,1,SearchNonZeroIdxKol(M1,k,j),j);
-						}
+                TukarBaris(M1, i, SearchOneIdxKol(M1, i, j));
+                   
+				for(int k = i + 1; k < M1.bar; k++){       		
+					if(SearchNonZeroKol(M1, i + 1, M1.bar, j)){
+						OperasiBaris(M1,1,SearchNonZeroIdxKol(M1, k, M1.bar, j),j);
 					}
-					i+=1;
-					j+=1;
+				}
+				i+=1;
+				j+=1;
        		}
        		else{
-       			MakeLeadOne(M1,i,j);
-       				for(int k=i+1; k<M1.bar; k++){       		
-						if(SearchNonZeroKol(M1, i+1, j)==true){
-							OperasiBaris(M1,i,SearchNonZeroIdxKol(M1,k,j),j);
-						}
+                MakeLeadOne(M1,i,j);
+                   
+       			for(int k = i + 1; k < M1.bar; k++){       		
+					if(SearchNonZeroKol(M1, i + 1, M1.bar, j)){
+						OperasiBaris(M1,i,SearchNonZeroIdxKol(M1, k, M1.bar, j),j);
 					}
+				}
 				i+=1;
 				j+=1;
        		}
@@ -455,7 +462,7 @@ public matriks MatriksKolomKeI(int kolom) {
         return t;
     }
 public void Cramer() {
-        int i;
+    int i;
 	int j;
 	matriks t = new matriks();
         t.bar = this.bar;
@@ -472,7 +479,7 @@ public void Cramer() {
             System.out.println("Tidak ada solusi cramer");
             return;
         }
-        for (int i = 1; i <= t.kol; i++) {
+        for (i = 1; i <= t.kol; i++) {
             matriks MatriksKolomI = MatriksKolomKeI(i);
             float DetmatriksI = MatriksKolomI.Determinan();
             float det = DetmatriksI / detAwal;
@@ -480,4 +487,146 @@ public void Cramer() {
         }
 
 }
+
+public matriks matriksEselonReduksi(matriks M1){
+    int i = 0;
+    int j = 0;
+    boolean valid = true;
+
+    while(i <M1.bar && j < M1.kol && valid){
+        if(M1.M[i][j] == 1){
+            if(i == 0 && j == 0){
+                for(int k=i+1; k<M1.bar; k++){
+                    if (SearchNonZeroKol(M1,k,M1.bar,j)){
+                        OperasiBaris(M1,i,SearchNonZeroIdxKol(M1,k,M1.bar,j),j);
+                    }
+                }
+            }
+            else{
+                for(int k=i+1; k<M1.bar; k++){
+                    if (SearchNonZeroKol(M1,k,M1.bar,j)){
+                        OperasiBaris(M1,i,SearchNonZeroIdxKol(M1,k,M1.bar,j),j);
+                    }
+                }
+                for(int k=0; k<i; k++){
+                    if (SearchNonZeroKol(M1,k,i,j)){
+                        OperasiBaris(M1,i,SearchNonZeroIdxKol(M1,k,i,j),j);
+                    }
+                }
+            }
+            i += 1;
+            j += 1;
+        }
+
+        else if(M1.M[i][j] == 0){
+            if(i == 0 && j == 0){
+                if(SearchOneKol(M1,i,j)==true){
+                    TukarBaris(M1,i,SearchOneIdxKol(M1,i,j));
+                    for (int k=i+1; k<M1.bar; k++){
+                        if (SearchNonZeroKol(M1,k,M1.bar,j)==true){
+                            OperasiBaris(M1,i,SearchNonZeroIdxKol(M1,k,M1.bar,j),j);
+                        }
+                    }
+                    for(int k=0; k<i; k++){
+                        if (SearchNonZeroKol(M1,k,i,j)==true){
+                            OperasiBaris(M1,i,SearchNonZeroIdxKol(M1,k,i,j),j);
+                        }
+                    }
+                    i += 1;
+                    j += 1;
+                }
+
+                else if (SearchNonZeroKol(M1,i,M1.bar,j)){
+                    TukarBaris(M1,i,SearchNonZeroIdxKol(M1,i,M1.bar,j));
+                    MakeLeadOne(M1,i,j);
+                    for(int k=0; k<i; k++){
+                        if (SearchNonZeroKol(M1,k,M1.bar,j)==true){
+                            OperasiBaris(M1,i,SearchNonZeroIdxKol(M1,k,M1.bar,j),j);
+                        }
+                    }
+                    for(int k=0; k<i; k++){
+                        if (SearchNonZeroKol(M1,k,i,j)==true){
+                            OperasiBaris(M1,i,SearchNonZeroIdxKol(M1,k,i,j),j);
+                        }
+                    }
+                    i += 1;
+                    j += 1;
+                }
+                 
+                else{
+                    valid = false;
+                    int kol = 0;
+                    while (kol < M1.kol && valid==false){
+                        if (M1.M[0][kol] != 0){
+                            valid = true;
+                        }
+                        else{
+                            kol += 1;
+                        }
+                    }
+
+                    if (valid == false){                        
+                        System.out.println("Input tidak valid!");
+                    }
+                    else{                                       
+                        j += 1;
+                    }
+                }
+            }
+
+            else{
+                if (SearchNonZeroKol(M1,i,M1.bar,j)){
+                    TukarBaris(M1,i,SearchNonZeroIdxKol(M1,i,M1.bar,j));
+                    if(M1.M[i][j] != 1){
+                        MakeLeadOne(M1,i,j);
+                    }
+                    for(int k = i + 1; k < M1.bar; k++){
+                        if (SearchNonZeroKol(M1,k,M1.bar,j)){
+                            OperasiBaris(M1,i,SearchNonZeroIdxKol(M1,k,M1.bar,j),j);
+                        }
+                    }
+                    for(int k = 0; k < i; k++){
+                        if (SearchNonZeroKol(M1,k,i,j)){
+                            OperasiBaris(M1,i,SearchNonZeroIdxKol(M1,k,i,j),j);
+                        }
+                    }
+                    i += 1;
+                    j += 1;
+                    }
+                
+
+                else{
+                    j += 1;
+                }
+            }
+        }
+
+        else{
+            if(SearchOneKol(M1,i,j)){
+                TukarBaris(M1,i,SearchOneIdxKol(M1,i,j));
+            }
+            else{
+                MakeLeadOne(M1,i,j);
+            }
+
+            for(int k = i + 1; k < M1.bar; k++){
+                if (SearchNonZeroKol(M1,k,M1.bar,j)){
+                    OperasiBaris(M1,i,SearchNonZeroIdxKol(M1,k,M1.bar,j),j);
+                }
+            }
+            for(int k = 0; k < i; k++){
+                if (SearchNonZeroKol(M1,k,i,j)){
+                    OperasiBaris(M1,i,SearchNonZeroIdxKol(M1,k,i,j),j);
+                }
+            }
+            i += 1;
+            j += 1;
+            
+        }
+
+    }
+    return M1;
+
+}
+
 }
