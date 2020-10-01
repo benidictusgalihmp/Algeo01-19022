@@ -448,7 +448,7 @@ public matriks MatriksKolomKeI(int kolom) {
                 if (j == kolom) {
                     t.M[i][j] = this.M[i][this.kol];
                 } else {
-                    t.M[i][j] = t.M[i][j];
+                    t.M[i][j] = this.M[i][j];
                 }
             }
         }
