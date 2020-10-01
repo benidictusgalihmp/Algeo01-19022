@@ -275,7 +275,8 @@ public matriks MartiksEselon(matriks M1){
 							j += 1;
 						}
        					else{
-       						MakeLeadOne(M1,brs,j);
+                            MakeLeadOne(M1,brs,j);
+                            TukarBaris(M1,i,SearchNonZeroIdxKol(M1, i, M1.bar, j));
        						for(int k = i + 1; k < M1.bar; k++){       		
 								if(SearchNonZeroKol(M1, i + 1, M1.bar, j)==true){
 									OperasiBaris(M1,i,SearchNonZeroIdxKol(M1, k, M1.bar, j),j);
@@ -571,6 +572,142 @@ public matriks matriksEselonReduksi(matriks M1){
     }
     return M1;
 
+}
+
+public matriks MatriksDeterminanReduksi(matriks M1){
+	int i = 0;
+    int j = 0;
+    boolean valid = true;
+
+    while (i < M1.bar && j < M1.kol && valid){
+        if(i == M1.bar - 1 && j == M1.kol - 1)
+        {
+            valid = false;
+        }
+        else{
+        if (M1.M[i][j] == 1){
+        	for(int k = i + 1; k < M1.bar; k++){ // Pencarian dalam kolom yang elemennya tidak 0
+                if (SearchNonZeroKol(M1, k, M1.bar, j)){
+                    OperasiBaris(M1,i,SearchNonZeroIdxKol(M1, k, M1.bar, j),j);
+                }
+            }
+            i += 1;
+            j += 1;
+        }
+
+       	else if(M1.M[i][j] == 0){
+       		if (i == 0 && j == 0){                            // Elemen bernilai 0 dan pada M[0][0]
+                if (SearchOneKol(M1,i,j)){
+                    TukarBaris(M1,i,SearchOneIdxKol(M1,i,j));
+
+                    for(int k=i+1; k<M1.bar; k++){                   // Pencarian dalam kolom yang elemennya tidak 0
+                        if (SearchNonZeroKol(M1, k, M1.bar, j)){
+                            OperasiBaris(M1,i,SearchNonZeroIdxKol(M1, k, M1.bar, j),j);
+                        }
+                    }       
+                    i += 1;                         
+                    j += 1;                                      
+       			}
+
+       			else if(SearchNonZeroKol(M1, i, M1.bar, j)){
+       				TukarBaris(M1,i,SearchNonZeroIdxKol(M1, i, M1.bar, j));
+                    MakeLeadOne(M1,i,j);
+                    for(int k = i + 1; k < M1.bar; k++){                   // Pencarian dalam kolom yang elemennya tidak 0
+                        if (SearchNonZeroKol(M1, k, M1.bar, j)){
+                            OperasiBaris(M1,i,SearchNonZeroIdxKol(M1, k, M1.bar, j),j);
+                        }
+                    }
+                    i += 1 ;                         
+                    j += 1;                                      
+       			}
+
+       			else{
+       				valid = false;
+                    int kol = 0;
+                    while (kol < M1.kol && !valid){
+                        if (M1.M[0][kol] != 0){
+                            valid = true;
+                        }
+                        else{
+                            kol += 1;
+                        }
+                    }
+
+                    if(valid==false){
+                    	System.out.println("Input tidak valid!");
+                    }
+                    else{
+                    	j += 1;
+                    }
+                }
+       		}
+
+       		else{
+       			boolean found = false;
+       			int brs = i;
+
+       			while(brs < M1.bar && !found){
+       				if(M1.M[brs][j] != 0){
+       					found = true;
+       					if(M1.M[brs][j] == 1){
+       						TukarBaris(M1, i, SearchOneIdxKol(M1, i, j));
+							for(int k = i + 1; k < M1.bar; k++){       		
+								if(SearchNonZeroKol(M1, i+1, M1.bar, j)){
+									OperasiBaris(M1,i,SearchNonZeroIdxKol(M1, k, M1.bar, j),j);
+								}
+							}
+							i += 1;
+							j += 1;
+						}
+       					else{
+                            MakeLeadOne(M1,brs,j);
+                            TukarBaris(M1,i,SearchNonZeroIdxKol(M1, i, M1.bar, j));
+       						for(int k = i + 1; k < M1.bar; k++){       		
+								if(SearchNonZeroKol(M1, i + 1, M1.bar, j)==true){
+									OperasiBaris(M1,i,SearchNonZeroIdxKol(M1, k, M1.bar, j),j);
+								}
+							}
+							i+=1;
+							j+=1;
+						}
+       				}
+       				else{
+       					brs+=1;
+       				}
+       			}
+       			if (found == false){
+                    j += 1;
+       			}
+       		}
+        }
+       	else{
+       		if(SearchOneKol(M1, i, j)){
+                TukarBaris(M1, i, SearchOneIdxKol(M1, i, j));
+                   
+				for(int k = i + 1; k < M1.bar; k++){       		
+					if(SearchNonZeroKol(M1, i + 1, M1.bar, j)){
+						OperasiBaris(M1,1,SearchNonZeroIdxKol(M1, k, M1.bar, j),j);
+					}
+				}
+				i+=1;
+				j+=1;
+       		}
+       		else{
+                MakeLeadOne(M1,i,j);
+                   
+       			for(int k = i + 1; k < M1.bar; k++){       		
+					if(SearchNonZeroKol(M1, i + 1, M1.bar, j)){
+						OperasiBaris(M1,i,SearchNonZeroIdxKol(M1, k, M1.bar, j),j);
+					}
+				}
+				i+=1;
+				j+=1;
+       		}
+        }
+        }
+
+    }
+    return M1;
 }
 
 }
