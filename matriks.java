@@ -437,4 +437,47 @@ public matriks MinorKofaktor(matriks A){
     }
      return MinKof;
 }
+public matriks MatriksKolomKeI(int kolom) {
+	int i;
+	int j;
+	matriks t = new matriks();
+        t.bar = this.bar;
+        t.kol = this.kol - 1;
+        for (i = 1; i <= t.bar; i++) {
+            for (j = 1; j <= t.kol; j++) {
+                if (j == a) {
+                    t.M[i][j] = this.M[i][this.kol];
+                } else {
+                    t.M[i][j] = t.M[i][j];
+                }
+            }
+        }
+        return t;
+    }
+public void Cramer() {
+        int i;
+	int j;
+	matriks t = new matriks();
+        t.bar = this.bar;
+        t.kol = this.kol - 1;
+        detAwal = t.Determinan();
+
+        for (i = 1; i <= t.bar; i++) {
+            for (j = 1; j <= t.kol; j++) {
+                t.M[i][j] = this.M[i][j];
+            }
+        }
+
+        if (detAwal == 0) {
+            System.out.println("Tidak ada solusi cramer");
+            return;
+        }
+        for (int i = 1; i <= t.kol; i++) {
+            matriks MatriksKolomI = MatriksKolomKeI(i);
+            float DetmatriksI = MatriksKolomI.Determinan();
+            float det = DetmatriksI / detAwal;
+            System.out.printf("%.3f\n", det);
+        }
+
+}
 }
