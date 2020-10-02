@@ -2,6 +2,7 @@
 13519066 - Almeiza Arvin Muzaki
 13519159 - Benidictus Galih Mahar Putra
 
+	Main program			Arvin
 1.	Sistem Persamaaan Linier
 	Metode eliminasi Gauss		Beni	bentuk eselon
 	Metode eliminasi Gauss-Jordan	Beni	bentuk eselon reduksi
@@ -18,7 +19,6 @@
 
 4.	Interpolasi Polinom		Jose
 5.	Regresi Linier Berganda		Arvin
-6.	Keluar
 
 Laporan :
 1. Cover: Beni
