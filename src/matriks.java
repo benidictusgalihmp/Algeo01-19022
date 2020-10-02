@@ -761,7 +761,7 @@ public matriks MatriksDeterminanReduksi(matriks M1){
 }
 public void Interpolasi() {
     int i,j;
-    double xk,yk;
+    float xk,yk;
     System.out.print("n: ");
     Scanner input = new Scanner(System.in);
     int n = input.nextInt();
