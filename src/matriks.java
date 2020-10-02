@@ -759,5 +759,29 @@ public matriks MatriksDeterminanReduksi(matriks M1){
     }
     return M1;
 }
+public void Interpolasi() {
+    int i,j;
+    double xk,yk;
+    System.out.print("n: ");
+    Scanner input = new Scanner(System.in);
+    int n = input.nextInt();
+    for (i = 1; i <= n+1; i++){
+        System.out.print("x dan y: ");
+        xk = input.nextDouble();
+        yk = input.nextDouble();  
+        for (j=0; j<=n; j++){
+            if(j==n){
+                this.M[i][j] = yk;
+            }
+            else{
+                this.M[i][j] = Math.pow(xk, j) ;
+             }    
+        }
+    MatriksEselon(this);
+
+    
+    
+    }
+}	
 
 }
