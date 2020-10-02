@@ -141,6 +141,45 @@ public matriks TukarBaris(matriks M3, int brs1, int brs2){
     return M3;
 }
 
+public boolean SearchLeadingOne(matriks M, int idxbrs, int idxkol1, int idxkol2)
+{
+    boolean found = false;
+    int i = idxkol1;
+    int j = idxkol2;
+
+    while(i < j && !found)
+    {
+        if (M.M[idxbrs][i] == 1) 
+        {
+            found = true;
+        }
+        else
+        {
+            i++;
+        }
+    }
+    return found;
+}
+
+public int SearchIdxLeadingOne(matriks M, int idxbrs, int idxkol1, int idxkol2)
+{
+    boolean found = false;
+    int i = idxkol1;
+    int j = idxkol2;
+
+    while(i < j && !found)
+    {
+        if (M.M[idxbrs][i] == 1) 
+        {
+            found = true;
+        }
+        else
+        {
+            i++;
+        }
+    }
+    return i;
+}
 
 public boolean SearchOneKol(matriks M1, int idxbrs, int idxkol){
 	boolean found = false;

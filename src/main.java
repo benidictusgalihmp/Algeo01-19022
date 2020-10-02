@@ -31,44 +31,61 @@ public class main {
 
                     if (SPL == 1) {
                         matriks M = new matriks();
-                        matriks X = new matriks();
+
                         M.InputMatriksAug(M, M.bar, M.kol);
                         M.MatriksEselon(M);
-                        boolean undef = false;
-                        int i = M.bar - 1;
-                        int j = M.kol - 2;
-
-                        while (i >= 0 && !undef) {
-                            int count = 0;
-                            if (M.SearchNonZeroBrs(M, i, j, 0)) {
-                                count++;
-                                if (M.SearchNonZeroIdxBrs(M, i, j, 0) == i) {
-                                    if (count == 1) {
-                                        X.M[0][i] = M.M[i][M.kol - 1];
-                                    } else {
-                                        System.out.println("Misalkan x" + j + " sama dengan s" + j);
+                        for (int i = M.bar - 1; i >= 0; i--) 
+                        {
+                            if (M.SearchLeadingOne(M, i, 0, M.kol - 1)) 
+                            {
+                                System.out.printf("x%d = %2f", M.SearchIdxLeadingOne(M, i, 0, M.kol - 1), M.M[i][M.kol - 1]);
+                                for (int k = M.SearchIdxLeadingOne(M, i, 0, M.kol - 1) + 1; k < M.kol - 2; k++) 
+                                {
+                                    if (M.M[i][k] != 0) 
+                                    {
+                                        System.out.printf("%2fx%d", M.M[i][k], k + 1);
                                     }
-                                    i--;
-                                } else {
-                                    j++;
                                 }
-                            } else {
-                                if (M.M[i][j + 1] == 0) {
-                                    i--;
-                                } else {
-                                    undef = true;
-                                    System.out.println("Solusi tidak ada");
+                                System.out.println();
+                            }
+                            else
+                            {
+                                if (M.M[M.bar - 1][M.kol - 1] != 0)
+                                {
+                                    System.out.println("Tidak ada solusi !");
                                 }
                             }
                         }
+                        
                         break;
                         
                     } else if (SPL == 2) {
                         matriks M = new matriks();
-                        matriks Hasil = new matriks();
                         M.InputMatriksAug(M, M.bar, M.kol);
-                        Hasil = M.matriksEselonReduksi(M);
-                        Hasil.PrintMatriks(Hasil);
+                        M.matriksEselonReduksi(M);
+                        
+                        for (int i = M.bar - 1; i >= 0; i--) 
+                        {
+                            if (M.SearchLeadingOne(M, i, 0, M.kol - 1)) 
+                            {
+                                System.out.printf("x%d = %2f", M.SearchIdxLeadingOne(M, i, 0, M.kol - 1), M.M[i][M.kol - 1]);
+                                for (int k = M.SearchIdxLeadingOne(M, i, 0, M.kol - 1) + 1; k < M.kol - 2; k++) 
+                                {
+                                    if (M.M[i][k] != 0) 
+                                    {
+                                        System.out.printf("%2fx%d", M.M[i][k], k + 1);
+                                    }
+                                }
+                                System.out.println();
+                            }
+                            else
+                            {
+                                if (M.M[M.bar - 1][M.kol - 1] != 0)
+                                {
+                                    System.out.println("Tidak ada solusi !");
+                                }
+                            }
+                        }
                         break;
                         
                     } else if (SPL == 3) {
